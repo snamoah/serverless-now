@@ -1,0 +1,17 @@
+{
+  "name": "@serverless-now/handler",
+  "version": "0.0.1",
+  "description": "Module to handle incoming requests",
+  "main": "lib/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "serverless",
+    "serverless-framework",
+    "serverless-now",
+    "handler"
+  ],
+  "author": "Samuel Amoah <sa.am@programmer.net>",
+  "license": "ISC"
+}
