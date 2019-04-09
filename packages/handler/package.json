@@ -1,5 +1,5 @@
 {
-  "name": "package-name",
+  "name": "@serverless-now/handler",
   "version": "0.0.1",
   "description": "Boilerplate for my packages",
   "main": "lib/index.js",
@@ -31,7 +31,7 @@
   },
   "config": {
     "commitizen": {
-      "path": "./node_modules/cz-conventional-changelog"
+      "path": "./packages/handler/node_modules/cz-conventional-changelog"
     }
   },
   "author": "Samuel Amoah <sa.am@programmer.net>",
