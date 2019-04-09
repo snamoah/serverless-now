@@ -1,6 +1,6 @@
 {
   "name": "@serverless-now/handler",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Boilerplate for my packages",
   "main": "lib/index.js",
   "scripts": {
