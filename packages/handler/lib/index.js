@@ -18,6 +18,11 @@ const createHandler = ({
   try {
     const { httpMethod } = event.requestContext
     const action = options.action || options.actions[httpMethod]
+
+    if (!action) {
+      throw new Error('Method not found')
+    }
+
     const response = await action(event)
     return formatResponse(response)
   } catch (error) {

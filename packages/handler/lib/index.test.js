@@ -44,6 +44,11 @@ describe('Handler', () => {
     })
 
     describe('Errors', () => {
+      const event = {
+        requestContext: { httpMethod: 'GET' },
+        body: JSON.stringify({ foo: 'bar' })
+      }
+
       it('should return error if something fails', () => {
         return expect(createHandler({ actions: {} })({})).to.eventually.include(
           {
@@ -51,6 +56,14 @@ describe('Handler', () => {
               "Cannot destructure property `httpMethod` of 'undefined' or 'null'."
           }
         )
+      })
+
+      it('should return error if method not found', () => {
+        return expect(
+          createHandler({ actions: {} })(event)
+        ).to.eventually.include({
+          message: 'Method not found'
+        })
       })
     })
   })
