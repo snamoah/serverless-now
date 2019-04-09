@@ -1,4 +1,4 @@
-const identity = value => value;
+const identity = value => value
 
 /**
  * @function handler
@@ -16,15 +16,15 @@ const createHandler = ({
   ...options
 }) => async event => {
   try {
-    const { httpMethod } = event.requestContext;
-    const action = options.action || options.actions[httpMethod];
-    const response = await action(event);
-    return formatResponse(response);
+    const { httpMethod } = event.requestContext
+    const action = options.action || options.actions[httpMethod]
+    const response = await action(event)
+    return formatResponse(response)
   } catch (error) {
-    return formatError(error);
+    return formatError(error)
   }
-};
+}
 
 module.exports = {
   createHandler
-};
+}
