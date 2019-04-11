@@ -1,27 +1,46 @@
 const identity = value => value
+const isFunction = value => typeof value === 'function'
+
+const notFoundError = (message = 'Method not found') => {
+  const error = new Error(message)
+  error.name = 'NotFoundError'
+  return error
+}
 
 /**
  * @function handler
- *
- * @param { Function } options - action function (used for lambda-invoked events)
- * @param { Object } options - options for http-invoked revents
- * @param { Array<Object> } options.actions - actions to be run per http method
- * @param { Function } options.formatResponse - format response to the client
- * @param { Function } options.formatError - format error to the client
  * @returns { AsyncFunction }
  */
-const createHandler = ({
-  formatError = identity,
-  formatResponse = identity,
-  ...options
-}) => async event => {
-  try {
-    const { httpMethod } = event.requestContext
-    const action = options.action || options.actions[httpMethod]
+const createHandler = (...args) => async event => {
+  let action
+  let actions
+  let formatError
+  let formatResponse
+  let validateRequest
 
-    if (!action) {
-      throw new Error('Method not found')
-    }
+  if (args.length >= 4) {
+    ;[validateRequest, actions, formatResponse, formatError] = args
+  } else if (args.length === 3) {
+    ;[actions, formatResponse, formatError] = args
+  } else if (args.length === 2) {
+    ;[actions, formatResponse] = args
+  } else if (args.length === 1) {
+    ;[actions] = args
+  }
+
+  formatError = formatError || identity
+  formatResponse = formatResponse || identity
+  validateRequest = validateRequest || identity
+  action = isFunction(actions) && actions
+
+  try {
+    if (!actions) throw notFoundError()
+
+    await validateRequest(event)
+    const { httpMethod } = event.requestContext
+    action = action || actions[httpMethod]
+
+    if (!action) throw notFoundError()
 
     const response = await action(event)
     return formatResponse(response)
