@@ -9,7 +9,7 @@
     "prepush": "npm run test",
     "precommit": "lint-staged",
     "lint": "standard --verbose --fix | snazzy",
-    "test": "nyc mocha test/setup.js '{,!(node_modules|coverage|docs)/**/}*.test.js' --color --no-timeouts"
+    "test": "nyc mocha '{,!(node_modules|coverage|docs)/**/}*.test.js' --color --no-timeouts"
   },
   "keywords": [
     "serverless",
